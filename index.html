@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var playersCount = 1;
+            function addBox() {
+                getPlayersDiv().appendChild(getBox(++playersCount));
+            }
+
+            function shuffle() {
+                var players = [];
+                for (var i = 1; i <= playersCount; i++) {   
+                    var name = document.getElementById("player-"+i);
+                    if (name && name.value) players.push(name.value);
+                }
+                if (!players.length){
+                    alert("No Players Entered");
+                    return;
+                }
+                shuffleArray(players);
+                hideElement("players");
+                hideElement("buttons");
+                var resultsDiv = document.getElementById("results");
+                resultsDiv.appendChild(getResultHeader());
+                for (var i = 0; i < players.length; i++) {
+                    resultsDiv.appendChild(getPlayerRow(players, i));
+                }
+                showElement("results");
+            }
+
+            function getPlayerRow(players, index) {
+                var tr = document.createElement("tr");
+                tr.innerHTML = "<td>"+(index+1)+"</td><td>"+players[index]+"</td>";
+                return tr;
+            }
+
+            function getResultHeader() {
+                var th = document.createElement("tr");
+                th.innerHTML = "<th>Order</th><th>Name</th>";
+                return th;
+            }
+
+            function init() {
+                getPlayersDiv().appendChild(getBox(1));
+            }
+
+            function getBox(n) {
+                var div = document.createElement("div");
+                div.innerHTML = "<input id='player-"+n+"' type='text'/><br/>";
+                return div;
+            }
+
+            function getPlayersDiv() {
+                return document.getElementById("players");
+            }
+
+            function hideElement(id) {
+                var x = document.getElementById(id);
+                x.style.display = "none";
+            }
+
+            function showElement(id) {
+                var x = document.getElementById(id);
+                x.style.display = "block";
+            }
+
+            function shuffleArray(array) {
+                let currentIndex = array.length,  randomIndex;
+                while (currentIndex != 0) {
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex--;
+                    [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+                }
+                return array;
+            }
+        
+        </script>
+    </head>
+
+    <body onload="init()">
+        <div id="players"></div>
+        
+        <div id="buttons">
+            <button onClick="addBox()">Add More</button>
+            <button onClick="shuffle()">Shuffle</button>
+        </div>
+        
+        <div id="results"></div>
+    </body>
+</html>
