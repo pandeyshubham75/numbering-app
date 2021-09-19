@@ -19,12 +19,14 @@
                 shuffleArray(players);
                 hideElement("players");
                 hideElement("buttons");
+                hideElement("header");
                 var resultsDiv = document.getElementById("results");
                 resultsDiv.appendChild(getResultHeader());
                 for (var i = 0; i < players.length; i++) {
                     resultsDiv.appendChild(getPlayerRow(players, i));
                 }
                 showElement("results");
+                showElement("header-result");
             }
 
             function getPlayerRow(players, index) {
@@ -78,13 +80,18 @@
     </head>
 
     <body onload="init()">
+        <h3>The Numbering App</h3>
+        <p>Idea is to perform numbering to decide batting order in the game of cricket, but it can be use to shuffle any number of items for anything.</p>
+        <hr/>
+        <div id="header"><h4>Enter any number of Players and then shuffle to perform numbering</h4></div>
         <div id="players"></div>
-        
+        <br/>
         <div id="buttons">
             <button onClick="addBox()">Add More</button>
             <button onClick="shuffle()">Shuffle</button>
         </div>
         
+        <div id="header-result" style="display: none"><h4>Numbering Done, Here is the batting order</h4></div>
         <div id="results"></div>
     </body>
 </html>
